@@ -28,7 +28,7 @@ export interface Choice {
     fear?: number;
     integrity?: number;
   };
-  type: 'safe' | 'risky' | 'dishonest';
+  type: "safe" | "risky" | "dishonest";
 }
 
 export interface StoryLine {
@@ -44,11 +44,24 @@ export interface Vignette {
   story: StoryLine[];
   choices: Choice[];
   backgroundImage?: string;
+  backgroundAudio?: string;
 }
 
-export type GamePhase = 'title' | 'intro' | 'plane' | 'vignettes' | 'terminal' | 'ending';
+export type GamePhase =
+  | "title"
+  | "intro"
+  | "plane"
+  | "vignettes"
+  | "terminal"
+  | "ending";
 
-export type EndingType = 'breathe' | 'held' | 'paper' | 'redline' | 'weightless' | 'clockout';
+export type EndingType =
+  | "breathe"
+  | "held"
+  | "paper"
+  | "redline"
+  | "weightless"
+  | "clockout";
 
 export interface EndingCondition {
   id: string;

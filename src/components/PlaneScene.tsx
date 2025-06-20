@@ -1,135 +1,194 @@
-import React, { useState, useEffect } from 'react';
-import { useGameStore } from '../store/gameStore';
+import React, { useState, useEffect, useRef, useMemo } from "react";
+import { useGameStore } from "../store/gameStore";
 
 interface DialogueLine {
   speaker: string;
   text: string;
+  duration: number; // in seconds
 }
 
 export const PlaneScene: React.FC = () => {
-  const setPhase = useGameStore(state => state.setPhase);
+  const { setPhase, settings } = useGameStore((state) => ({
+    setPhase: state.setPhase,
+    settings: state.settings,
+  }));
   const [currentDialogue, setCurrentDialogue] = useState(0);
   const [showJumpButton, setShowJumpButton] = useState(false);
-  const [isTyping, setIsTyping] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [audioError, setAudioError] = useState<string | null>(null);
 
-  const dialogues: DialogueLine[] = [
-    {
-      speaker: "Instructor Jake",
-      text: "First time jumping, Roy? You picked a beautiful day for it.",
-    },
-    {
-      speaker: "Instructor Jake",
-      text: "How are you feeling up here? Most folks get a little nervous their first time.",
-    },
-    {
-      speaker: "Roy",
-      text: "Honestly? Terrified. But that's the point, right?",
-    },
-    {
-      speaker: "Roy", 
-      text: "I'm 55 years old and I've never done anything truly dangerous in my life.",
-    },
-    {
-      speaker: "Instructor Jake",
-      text: "Dangerous? This is one of the safest sports in the world when done right.",
-    },
-    {
-      speaker: "Instructor Jake",
-      text: "What made you decide to try it? Birthday? Divorce? Midlife crisis?",
-    },
-    {
-      speaker: "Roy",
-      text: "My wife... ex-wife... she always said I was too afraid to really live.",
-    },
-    {
-      speaker: "Roy",
-      text: "Maybe she was right. Maybe it's time to prove her wrong.",
-    },
-    {
-      speaker: "Roy",
-      text: "Or prove her right. I'm not sure which scares me more.",
-    },
-    {
-      speaker: "Instructor Jake",
-      text: "Well, you're about to find out. We're at altitude now.",
-    },
-    {
-      speaker: "Instructor Jake",
-      text: "You ready to take that leap, Roy?",
-    },
-  ];
+  const dialogues: DialogueLine[] = useMemo(
+    () => [
+      {
+        speaker: "Instructor Jake",
+        text: "First time jumping, Roy? You picked a beautiful day for it.",
+        duration: 3,
+      },
+      {
+        speaker: "Instructor Jake",
+        text: "How are you feeling up here? Most folks get a little nervous their first time.",
+        duration: 3.5,
+      },
+      {
+        speaker: "Roy",
+        text: "Honestly? Terrified. But that's the point, right?",
+        duration: 3.5,
+      },
+      {
+        speaker: "Roy",
+        text: "I'm 55 years old and I've never done anything truly dangerous in my life.",
+        duration: 5.0,
+      },
+      {
+        speaker: "Instructor Jake",
+        text: "Dangerous? This is one of the safest sports in the world when done right.",
+        duration: 4,
+      },
+      {
+        speaker: "Instructor Jake",
+        text: "What made you decide to try it? Birthday? Divorce? Midlife crisis?",
+        duration: 3.5,
+      },
+      {
+        speaker: "Roy",
+        text: "My wife... ex-wife... she always said I was too afraid to really live.",
+        duration: 5,
+      },
+      {
+        speaker: "Roy",
+        text: "Maybe she was right. Maybe it's time to prove her wrong.",
+        duration: 5,
+      },
+      {
+        speaker: "Roy",
+        text: "Or prove her right. I'm not sure which scares me more.",
+        duration: 4.5,
+      },
+      {
+        speaker: "Instructor Jake",
+        text: "Well, you're about to find out. We're at altitude now.",
+        duration: 3.5,
+      },
+      {
+        speaker: "Instructor Jake",
+        text: "You ready to take that leap, Roy?",
+        duration: 2,
+      },
+    ],
+    [],
+  );
 
-  const handleAdvanceDialogue = () => {
-    if (currentDialogue < dialogues.length - 1) {
-      setIsTyping(true);
-      setTimeout(() => {
-        setCurrentDialogue(prev => prev + 1);
-        setIsTyping(false);
-      }, 300);
-    } else {
-      // We've reached the end of dialogue, show the jump sequence
-      setShowJumpButton(true);
+  // Auto-advance dialogue using individual durations
+  useEffect(() => {
+    if (currentDialogue < dialogues.length - 1 && !showJumpButton) {
+      const currentDuration = dialogues[currentDialogue]?.duration || 3;
+      const timer = setTimeout(() => {
+        setCurrentDialogue((prev) => prev + 1);
+      }, currentDuration * 1000);
+      return () => clearTimeout(timer);
+    } else if (currentDialogue >= dialogues.length - 1 && !showJumpButton) {
+      // Show jump button after last dialogue
+      const finalDuration = dialogues[currentDialogue]?.duration || 3;
+      const timer = setTimeout(() => {
+        setShowJumpButton(true);
+      }, finalDuration * 1000);
+      return () => clearTimeout(timer);
     }
-  };
+  }, [currentDialogue, showJumpButton, dialogues]);
+
+  // Audio and video management
+  useEffect(() => {
+    const video = videoRef.current;
+    const audio = audioRef.current;
+    if (!video || !audio) return;
+
+    const handleAudioError = (e: Event) => {
+      console.error("Audio error:", e);
+      const error = audio.error;
+      if (error) {
+        switch (error.code) {
+          case MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED:
+            setAudioError("Audio file not found or format not supported");
+            break;
+          case MediaError.MEDIA_ERR_NETWORK:
+            setAudioError("Network error loading audio");
+            break;
+          default:
+            setAudioError("Error loading audio file");
+        }
+      }
+    };
+
+    const handleVideoStart = () => {
+      // Start audio when video starts playing, but only if sound is enabled
+      if (settings.soundEnabled && audio) {
+        console.log("Attempting to play plane audio...");
+        audio
+          .play()
+          .then(() => {
+            console.log("Plane audio playing successfully");
+            setAudioError(null);
+          })
+          .catch((error) => {
+            console.error("Failed to play plane audio:", error);
+            setAudioError("Failed to play audio: " + error.message);
+          });
+      }
+    };
+
+    // Add error handler to audio element
+    audio.addEventListener("error", handleAudioError);
+    video.addEventListener("play", handleVideoStart);
+
+    // Log audio element state
+    console.log("Plane audio element src:", audio.src);
+    console.log("Plane audio ready state:", audio.readyState);
+
+    return () => {
+      audio.removeEventListener("error", handleAudioError);
+      video.removeEventListener("play", handleVideoStart);
+    };
+  }, [settings.soundEnabled]);
 
   const handleJump = () => {
-    setPhase('vignettes');
+    // Stop both video and audio before transitioning
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+    if (audioRef.current) {
+      audioRef.current.pause();
+    }
+    setPhase("vignettes");
   };
 
-  // Check if we're at the last dialogue
-  const isLastDialogue = currentDialogue >= dialogues.length - 1;
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-600 to-blue-800 flex items-center justify-center relative">
-      {/* Airplane interior background */}
-      <div className="absolute inset-0">
-        {/* Plane interior with pixel art style */}
-        <div className="w-full h-full relative" style={{
-          background: 'linear-gradient(90deg, #4a5568 0%, #718096 50%, #4a5568 100%)'
-        }}>
-          {/* Plane windows */}
-          <div className="absolute right-16 top-1/4 space-y-8">
-            {[...Array(3)].map((_, i) => (
-              <div key={i} className="w-24 h-16 border-4 border-gray-800 bg-gradient-to-b from-sky-300 to-green-400 rounded-lg relative">
-                <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-green-600 to-green-400" />
-                {/* Clouds visible through windows */}
-                <div className="absolute top-2 left-2 w-4 h-2 bg-white/80 rounded pixelated" />
-                <div className="absolute top-4 right-3 w-3 h-2 bg-white/60 rounded pixelated" />
-              </div>
-            ))}
-          </div>
-          
-          {/* Characters - pixel art style */}
-          <div className="absolute left-1/3 top-1/2 transform -translate-y-1/2 flex items-center gap-12">
-            {/* Instructor */}
-            <div className="text-center">
-              <div className="w-16 h-20 bg-blue-600 border-2 border-black pixelated relative mx-auto mb-2">
-                {/* Head */}
-                <div className="w-8 h-8 bg-orange-300 border border-black absolute -top-8 left-1/2 transform -translate-x-1/2" />
-                {/* Goggles */}
-                <div className="w-6 h-2 bg-gray-800 absolute -top-6 left-1/2 transform -translate-x-1/2" />
-                {/* Body details */}
-                <div className="w-2 h-4 bg-yellow-400 absolute top-2 left-1/2 transform -translate-x-1/2" />
-              </div>
-              <div className="text-xs pixelated text-white">Jake</div>
-            </div>
-            
-            {/* Roy */}
-            <div className="text-center">
-              <div className="w-16 h-20 bg-gray-700 border-2 border-black pixelated relative mx-auto mb-2">
-                {/* Head */}
-                <div className="w-8 h-8 bg-orange-200 border border-black absolute -top-8 left-1/2 transform -translate-x-1/2" />
-                {/* Glasses */}
-                <div className="w-4 h-1 bg-gray-600 absolute -top-6 left-1/2 transform -translate-x-1/2" />
-                {/* Body details */}
-                <div className="w-2 h-4 bg-red-500 absolute top-2 left-1/2 transform -translate-x-1/2" />
-              </div>
-              <div className="text-xs pixelated text-white">Roy</div>
-            </div>
-          </div>
+    <div className="min-h-screen bg-black flex items-center justify-center relative overflow-hidden">
+      {/* Video Player */}
+      <video
+        ref={videoRef}
+        className="max-w-full max-h-full brightness-75"
+        autoPlay
+        muted
+        playsInline
+        style={{
+          aspectRatio: "4/3",
+          objectFit: "contain",
+        }}
+      >
+        <source src="/video/airplane.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      <audio ref={audioRef} src="/video/plane-audio.mp3" preload="auto" />
+
+      {/* Audio error message */}
+      {audioError && (
+        <div className="absolute top-8 left-1/2 transform -translate-x-1/2 bg-red-900/80 text-white px-6 py-3 border-2 border-red-600 pixelated text-sm">
+          ⚠️ {audioError}
         </div>
-      </div>
-      
+      )}
+
       {/* Dialogue box */}
       <div className="absolute bottom-8 left-8 right-8 bg-black/95 border-4 border-gray-300 pixelated z-10">
         {/* Header */}
@@ -138,22 +197,13 @@ export const PlaneScene: React.FC = () => {
             {!showJumpButton ? dialogues[currentDialogue]?.speaker : "Narrator"}
           </div>
         </div>
-        
+
         {/* Content */}
         <div className="p-6">
           {!showJumpButton ? (
-            <>
-              <div className={`text-white text-lg leading-relaxed mb-4 ${isTyping ? 'opacity-50' : ''}`}>
-                {dialogues[currentDialogue]?.text}
-              </div>
-              <button
-                onClick={handleAdvanceDialogue}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 pixelated border-2 border-blue-800 transition-colors"
-                disabled={isTyping}
-              >
-                {isLastDialogue ? "..." : "Continue"}
-              </button>
-            </>
+            <div className="text-white text-lg leading-relaxed">
+              {dialogues[currentDialogue]?.text}
+            </div>
           ) : (
             <div className="text-center">
               <div className="text-white text-xl mb-6 pixelated">
@@ -168,21 +218,6 @@ export const PlaneScene: React.FC = () => {
             </div>
           )}
         </div>
-      </div>
-      
-      {/* Wind effect */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-1 h-8 bg-white/20 animate-wind"
-            style={{
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 2}s`,
-              animationDuration: `${0.5 + Math.random() * 1}s`,
-            }}
-          />
-        ))}
       </div>
     </div>
   );
