@@ -129,9 +129,7 @@ export const TitleScreen: React.FC = () => {
           <p className="text-2xl pixelated text-white/90 mb-2">
             An Interactive Life Story
           </p>
-          <p className="text-lg pixelated text-white/80">
-            8-bit Choose Your Own Adventure
-          </p>
+          
         </div>
 
         {/* Game description */}
