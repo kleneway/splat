@@ -7,7 +7,7 @@ export const vignettes: Vignette[] = [
     age: 8,
     setting:
       "Hallway at night, soft guitar music drifting from the living room",
-    backgroundImage: "/image/fathers-guitar.png",
+    backgroundImage: "/image/bg-0.png",
     backgroundAudio: "/audio/fathers-guitar.mp3",
     story: [
       {
@@ -99,6 +99,7 @@ export const vignettes: Vignette[] = [
     age: 12,
     setting:
       "School nurse's office, sounds of presentations echoing from down the hall",
+    backgroundImage: "/image/bg-1.png",
     story: [
       {
         speaker: "Roy",
@@ -180,6 +181,7 @@ export const vignettes: Vignette[] = [
     age: 15,
     setting:
       "Behind the school building, spray paint can cold in your trembling hand",
+    backgroundImage: "/image/bg-2.png",
     story: [
       {
         speaker: "Roy",
@@ -264,6 +266,7 @@ export const vignettes: Vignette[] = [
     title: "Words on Fire",
     age: 17,
     setting: "Your bedroom, notebook pages scattered around the bathroom sink",
+    backgroundImage: "/image/bg-3.png",
     story: [
       {
         speaker: "Roy",
@@ -354,6 +357,7 @@ export const vignettes: Vignette[] = [
     age: 20,
     setting:
       "Downtown square, the acrid smell of tear gas beginning to drift through the crowd",
+    backgroundImage: "/image/bg-4.png",
     story: [
       {
         speaker: "Roy",
@@ -434,6 +438,7 @@ export const vignettes: Vignette[] = [
     age: 24,
     setting:
       "Corporate office with floor-to-ceiling windows overlooking distant mountains",
+    backgroundImage: "/image/bg-5.png",
     story: [
       {
         speaker: "Roy",
@@ -510,6 +515,7 @@ export const vignettes: Vignette[] = [
     age: 27,
     setting:
       "Kitchen table at dawn, coffee growing cold between trembling hands",
+    backgroundImage: "/image/bg-6.png",
     story: [
       {
         speaker: "Roy",
@@ -602,6 +608,7 @@ export const vignettes: Vignette[] = [
     title: "Rocket Ships and Reality",
     age: 32,
     setting: "Ethan's bedroom, walls covered with space posters and model rockets",
+    backgroundImage: "/image/bg-7.png",
     story: [
       {
         speaker: "Roy",
@@ -685,6 +692,7 @@ export const vignettes: Vignette[] = [
     title: "The Corner Office",
     age: 38,
     setting: "Mr. Hartley's office overlooking downtown, manila folder on the desk",
+    backgroundImage: "/image/bg-8.png",
     story: [
       {
         speaker: "Roy",
@@ -765,6 +773,7 @@ export const vignettes: Vignette[] = [
     title: "Shattered Things",
     age: 43,
     setting: "Living room, blue and white pottery fragments scattered on hardwood",
+    backgroundImage: "/image/bg-9.png",
     story: [
       {
         speaker: "Roy",
@@ -844,6 +853,7 @@ export const vignettes: Vignette[] = [
     title: "The Space Between Sleep",
     age: 47,
     setting: "Kitchen at 2 AM, streetlight filtering through gauze curtains",
+    backgroundImage: "/image/bg-10.png",
     story: [
       {
         speaker: "Roy",
@@ -923,6 +933,7 @@ export const vignettes: Vignette[] = [
     title: "The Life Unlived",
     age: 50,
     setting: "Funeral home, burgundy carpet and the smell of lilies and regret",
+    backgroundImage: "/image/bg-11.png",
     story: [
       {
         speaker: "Roy",
@@ -1003,6 +1014,7 @@ export const vignettes: Vignette[] = [
     title: "The Hendricks File",
     age: 53,
     setting: "Your office desk, manila file open with devastating photographs",
+    backgroundImage: "/image/bg-12.png",
     story: [
       {
         speaker: "Roy",
@@ -1082,6 +1094,7 @@ export const vignettes: Vignette[] = [
     title: "Words on Cream Paper",
     age: 54,
     setting: "Kitchen table, divorce papers finalized, envelope with careful handwriting",
+    backgroundImage: "/image/bg-13.png",
     story: [
       {
         speaker: "Roy",
@@ -1161,6 +1174,7 @@ export const vignettes: Vignette[] = [
     title: "Learning to Fall",
     age: 55,
     setting: "Skydiving center hangar, prairie grass and endless Kansas sky",
+    backgroundImage: "/image/bg-14.png",
     story: [
       {
         speaker: "Roy",
