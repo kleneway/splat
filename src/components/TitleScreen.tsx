@@ -137,17 +137,12 @@ export const TitleScreen: React.FC = () => {
         {/* Game description */}
         <div className="bg-black/70 border-2 border-white/50 p-6 mb-8 pixelated max-w-2xl mx-auto">
           <p className="text-base leading-relaxed mb-4">
-            You are Roy Thompson, a 55-year-old insurance salesman from Kansas
+            You are Roy Thompson, an insurance salesman from Kansas
             who has spent his entire life making safe choices.
           </p>
-          <p className="text-base leading-relaxed mb-4">
-            On your birthday, you decide to go skydiving - the first truly risky
-            thing you've ever done. When your parachute fails, your life flashes
-            before your eyes.
-          </p>
           <p className="text-base leading-relaxed text-yellow-300">
-            Relive the pivotal moments that shaped who you became. Every choice
-            matters. Every decision echoes through time.
+            On your 55th birthday, you decide to go skydiving - the first truly risky
+            thing you've ever done. That...may have been a mistake.
           </p>
         </div>
 
