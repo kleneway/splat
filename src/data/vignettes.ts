@@ -181,7 +181,7 @@ export const vignettes: Vignette[] = [
     age: 15,
     setting:
       "Behind the school building, spray paint can cold in your trembling hand",
-    backgroundImage: "/image/bg-2.png",
+    backgroundImage: "/image/bg-3.png",
     story: [
       {
         speaker: "Roy",
@@ -266,7 +266,7 @@ export const vignettes: Vignette[] = [
     title: "Words on Fire",
     age: 17,
     setting: "Your bedroom, notebook pages scattered around the bathroom sink",
-    backgroundImage: "/image/bg-3.png",
+    backgroundImage: "/image/bg-2.png",
     story: [
       {
         speaker: "Roy",
@@ -608,7 +608,7 @@ export const vignettes: Vignette[] = [
     title: "Rocket Ships and Reality",
     age: 32,
     setting: "Ethan's bedroom, walls covered with space posters and model rockets",
-    backgroundImage: "/image/bg-7.png",
+    backgroundImage: "/image/bg-8.png",
     story: [
       {
         speaker: "Roy",
@@ -692,7 +692,7 @@ export const vignettes: Vignette[] = [
     title: "The Corner Office",
     age: 38,
     setting: "Mr. Hartley's office overlooking downtown, manila folder on the desk",
-    backgroundImage: "/image/bg-8.png",
+    backgroundImage: "/image/bg-7.png",
     story: [
       {
         speaker: "Roy",
@@ -1014,7 +1014,7 @@ export const vignettes: Vignette[] = [
     title: "The Hendricks File",
     age: 53,
     setting: "Your office desk, manila file open with devastating photographs",
-    backgroundImage: "/image/bg-12.png",
+    backgroundImage: "/image/bg-13.png",
     story: [
       {
         speaker: "Roy",
@@ -1094,7 +1094,7 @@ export const vignettes: Vignette[] = [
     title: "Words on Cream Paper",
     age: 54,
     setting: "Kitchen table, divorce papers finalized, envelope with careful handwriting",
-    backgroundImage: "/image/bg-13.png",
+    backgroundImage: "/image/bg-12.png",
     story: [
       {
         speaker: "Roy",
