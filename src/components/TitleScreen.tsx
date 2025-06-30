@@ -95,8 +95,21 @@ export const TitleScreen: React.FC = () => {
       {/* Dark overlay for better text readability */}
       <div className="absolute inset-0 bg-black/40" />
 
+      {/* Badge in top-right corner */}
+      <div className="absolute top-8 left-8 z-30">
+        <div 
+          className="w-[150px] h-[150px] opacity-80 hover:opacity-100 transition-opacity duration-300"
+          style={{
+            backgroundImage: `url('/image/black_circle_360x360.svg')`,
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+          }}
+        />
+      </div>
+
       {/* Audio controls */}
-      <div className="absolute top-8 right-8 z-20 flex flex-col gap-2">
+      <div className="absolute top-8 right-8 z-20 flex flex-col gap-2" style={{ marginTop: '0px' }}>
         <button
           onClick={() => toggleSetting("soundEnabled")}
           className="bg-black/70 hover:bg-black/90 text-white p-3 border-2 border-white/50 pixelated transition-all duration-200 flex items-center gap-2"
