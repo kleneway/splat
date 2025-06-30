@@ -51,6 +51,7 @@ export type GamePhase =
   | "title"
   | "intro"
   | "plane"
+  | "falling"
   | "vignettes"
   | "terminal"
   | "ending";
@@ -75,6 +76,7 @@ export interface EndingCondition {
 export interface GameState {
   phase: GamePhase;
   currentVignetteIndex: number;
+  currentFallingIndex: number;
   stats: GameStats;
   memoryItems: MemoryItem[];
   completedVignettes: string[];

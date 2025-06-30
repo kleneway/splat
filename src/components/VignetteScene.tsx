@@ -20,7 +20,8 @@ export const VignetteScene: React.FC = () => {
   useEffect(() => {
     // Check if we've completed all vignettes
     if (currentVignetteIndex >= vignettes.length) {
-      setPhase("terminal");
+      // Continue with falling scenes or go to terminal
+      setPhase("falling");
       return;
     }
 
@@ -188,7 +189,7 @@ export const VignetteScene: React.FC = () => {
       )}
 
       {/* Falling effect overlay */}
-      <div className="absolute inset-0 pointer-events-none hidden">
+      <div className="absolute inset-0 pointer-events-none">
         {/* Wind particles */}
         {[...Array(15)].map((_, i) => (
           <div

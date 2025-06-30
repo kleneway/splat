@@ -23,6 +23,7 @@ interface GameStore extends GameState {
 const initialState: GameState = {
   phase: "title",
   currentVignetteIndex: 0,
+  currentFallingIndex: 0,
   stats: {
     desire: 0,
     fear: 0,
@@ -78,12 +79,12 @@ export const useGameStore = create<GameStore>((set, get) => ({
     });
 
     // Check if we should trigger Red Line ending early
-    if (newStats.redLine >= 3 && state.currentVignetteIndex >= 9) {
+    if (newStats.redLine >= 3 && state.currentVignetteIndex >= 5) {
       set({ ending: "redline", phase: "ending" });
       return;
     }
 
-    // Auto-advance to next vignette after a brief delay
+    // Auto-advance to next falling scene after a brief delay
     setTimeout(() => {
       get().nextVignette();
     }, 1500);
@@ -92,11 +93,36 @@ export const useGameStore = create<GameStore>((set, get) => ({
   nextVignette: () => {
     const state = get();
 
-    if (state.currentVignetteIndex < vignettes.length - 1) {
-      set({ currentVignetteIndex: state.currentVignetteIndex + 1 });
-    } else {
-      // All vignettes completed, move to terminal phase
-      set({ phase: "terminal" });
+    // Alternate between falling scenes and vignettes
+    if (state.phase === 'vignettes') {
+      // After a vignette, go to falling scene (unless we've completed all)
+      if (state.currentFallingIndex < 5) { // 6 falling scenes total (0-5)
+        set({ 
+          phase: 'falling',
+          currentFallingIndex: state.currentFallingIndex + 1
+        });
+      } else {
+        // All falling scenes done, go to terminal
+        set({ phase: 'terminal' });
+      }
+    } else if (state.phase === 'falling') {
+      // After a falling scene, go to next vignette (unless we've completed all)
+      if (state.currentVignetteIndex < vignettes.length - 1) {
+        set({ 
+          phase: 'vignettes',
+          currentVignetteIndex: state.currentVignetteIndex + 1
+        });
+      } else {
+        // All vignettes done, continue with remaining falling scenes
+        if (state.currentFallingIndex < 5) {
+          set({ 
+            phase: 'falling',
+            currentFallingIndex: state.currentFallingIndex + 1
+          });
+        } else {
+          set({ phase: 'terminal' });
+        }
+      }
     }
   },
 
@@ -166,6 +192,9 @@ export const useGameStore = create<GameStore>((set, get) => ({
         break;
       case "plane":
         newState.phase = "plane";
+        break;
+      case "falling":
+        newState.phase = "falling";
         break;
       case "vignette":
       case "vignettes":

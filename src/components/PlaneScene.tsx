@@ -159,7 +159,8 @@ export const PlaneScene: React.FC = () => {
     if (audioRef.current) {
       audioRef.current.pause();
     }
-    setPhase("vignettes");
+    // Go to first falling scene instead of vignettes
+    setPhase("falling");
   };
 
   return (

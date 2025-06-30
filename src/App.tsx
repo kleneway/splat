@@ -3,6 +3,7 @@ import { useGameStore } from "./store/gameStore";
 import { TitleScreen } from "./components/TitleScreen";
 import { IntroScene } from "./components/IntroScene";
 import { PlaneScene } from "./components/PlaneScene";
+import { FallingScene } from "./components/FallingScene";
 import { VignetteScene } from "./components/VignetteScene";
 import { TerminalScene } from "./components/TerminalScene";
 import { EndingScene } from "./components/EndingScene";
@@ -10,7 +11,7 @@ import { GameHUD } from "./components/GameHUD";
 import { EndingType } from "./types/game";
 
 function App() {
-  const { phase, settings, jumpToScene } = useGameStore();
+  const { phase, settings, jumpToScene, currentFallingIndex } = useGameStore();
 
   // Secret debug URL parameters - remove before launch
   useEffect(() => {
@@ -67,6 +68,7 @@ function App() {
       {phase === "title" && <TitleScreen />}
       {phase === "intro" && <IntroScene />}
       {phase === "plane" && <PlaneScene />}
+      {phase === "falling" && <FallingScene sceneIndex={currentFallingIndex} />}
       {phase === "vignettes" && <VignetteScene />}
       {phase === "terminal" && <TerminalScene />}
       {phase === "ending" && <EndingScene />}
