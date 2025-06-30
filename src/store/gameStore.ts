@@ -92,15 +92,17 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
   nextVignette: () => {
     const state = get();
-    const totalVignettes = vignettes.length; // 14 vignettes
-    const totalFallingScenes = 15; // 15 falling scenes (one before first vignette + one between each)
+    const totalVignettes = vignettes.length; // 15 vignettes (0-14)
+    const totalFallingScenes = 15; // 15 falling scenes (0-14)
 
     if (state.phase === 'vignettes') {
-      // After a vignette, go to falling scene
-      if (state.currentFallingIndex < totalFallingScenes - 1) {
+      // After completing a vignette, go to the next falling scene
+      const nextFallingIndex = state.currentFallingIndex + 1;
+      
+      if (nextFallingIndex < totalFallingScenes) {
         set({ 
           phase: 'falling',
-          currentFallingIndex: state.currentFallingIndex + 1
+          currentFallingIndex: nextFallingIndex
         });
       } else {
         // All falling scenes done, go to terminal
@@ -108,17 +110,21 @@ export const useGameStore = create<GameStore>((set, get) => ({
       }
     } else if (state.phase === 'falling') {
       // After a falling scene, go to next vignette (if any left)
-      if (state.currentVignetteIndex < totalVignettes - 1) {
+      const nextVignetteIndex = state.currentVignetteIndex + 1;
+      
+      if (nextVignetteIndex < totalVignettes) {
         set({ 
           phase: 'vignettes',
-          currentVignetteIndex: state.currentVignetteIndex + 1
+          currentVignetteIndex: nextVignetteIndex
         });
       } else {
         // All vignettes done, continue with remaining falling scenes or go to terminal
-        if (state.currentFallingIndex < totalFallingScenes - 1) {
+        const nextFallingIndex = state.currentFallingIndex + 1;
+        
+        if (nextFallingIndex < totalFallingScenes) {
           set({ 
             phase: 'falling',
-            currentFallingIndex: state.currentFallingIndex + 1
+            currentFallingIndex: nextFallingIndex
           });
         } else {
           set({ phase: 'terminal' });
