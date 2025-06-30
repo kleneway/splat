@@ -27,46 +27,59 @@ export const FallingScene: React.FC<FallingSceneProps> = ({ sceneIndex }) => {
     {
       // Second fall - first attempt at ripcord
       title: "The Pull",
-      altitude: "8,000 feet",
+      altitude: "12,000 feet",
       thoughts: [
         "Time to pull the ripcord. Just like Jake showed me.",
         "I reach for the handle... where is it? WHERE IS IT?",
         "My heart stops. The handle is there, but it's not... it's not working.",
         "Stay calm, Roy. You have a backup chute. Everything will be fine."
       ],
-      backgroundClass: "bg-gradient-to-b from-blue-500 to-green-400",
+      backgroundClass: "bg-gradient-to-b from-blue-500 to-blue-700",
       windIntensity: "intense"
     },
     {
       // Third fall - panic setting in
       title: "The Realization",
-      altitude: "5,000 feet",
+      altitude: "10,000 feet",
       thoughts: [
         "The ground is getting bigger. Much bigger.",
         "I can see individual trees now. Individual cars on the highway.",
         "This isn't happening. This can't be happening to me.",
         "I've spent my whole life being careful, being safe. This isn't how it ends."
       ],
-      backgroundClass: "bg-gradient-to-b from-green-400 to-yellow-400",
-      windIntensity: "extreme"
+      backgroundClass: "bg-gradient-to-b from-blue-600 to-green-400",
+      windIntensity: "intense"
     },
     {
       // Fourth fall - memories flooding back
       title: "The Flood",
-      altitude: "3,000 feet",
+      altitude: "8,000 feet",
       thoughts: [
         "They say your life flashes before your eyes when you're dying.",
         "I always thought that was just a saying.",
         "But here they come—all the moments, all the choices, all the roads not taken.",
         "Maybe this is my chance to understand who I really am."
       ],
+      backgroundClass: "bg-gradient-to-b from-green-400 to-yellow-400",
+      windIntensity: "extreme"
+    },
+    {
+      // Fifth fall - deeper memories
+      title: "The Past",
+      altitude: "6,000 feet",
+      thoughts: [
+        "Each memory hits like a physical blow.",
+        "All the times I chose safety over adventure, fear over love.",
+        "Julia's face when I said no to Denver. Dad's guitar gathering dust.",
+        "A lifetime of 'maybe next time' and 'when I'm ready.'"
+      ],
       backgroundClass: "bg-gradient-to-b from-yellow-400 to-orange-400",
       windIntensity: "extreme"
     },
     {
-      // Fifth fall - anger and regret
+      // Sixth fall - anger and regret
       title: "The Rage",
-      altitude: "2,000 feet",
+      altitude: "4,000 feet",
       thoughts: [
         "Fifty-five years of playing it safe, and this is how it ends?",
         "All those dreams I buried, all those chances I didn't take.",
@@ -77,9 +90,9 @@ export const FallingScene: React.FC<FallingSceneProps> = ({ sceneIndex }) => {
       windIntensity: "extreme"
     },
     {
-      // Sixth fall - acceptance and final attempt
+      // Seventh fall - acceptance and final attempt
       title: "The Last Chance",
-      altitude: "1,000 feet",
+      altitude: "2,000 feet",
       thoughts: [
         "Wait. The backup chute. I still have the backup chute.",
         "One last chance. One final pull of the cord.",
@@ -209,10 +222,10 @@ export const FallingScene: React.FC<FallingSceneProps> = ({ sceneIndex }) => {
       </div>
 
       {/* Ground approaching effect for later scenes */}
-      {sceneIndex >= 3 && (
+      {sceneIndex >= 4 && (
         <div 
           className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-green-800/60 to-transparent animate-zoom-in"
-          style={{ height: `${Math.min((sceneIndex - 2) * 20, 60)}vh` }}
+          style={{ height: `${Math.min((sceneIndex - 3) * 15, 50)}vh` }}
         />
       )}
     </div>

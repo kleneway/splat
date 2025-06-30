@@ -92,11 +92,12 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
   nextVignette: () => {
     const state = get();
+    const totalVignettes = vignettes.length; // 7 vignettes
+    const totalFallingScenes = 7; // 7 falling scenes
 
-    // Alternate between falling scenes and vignettes
     if (state.phase === 'vignettes') {
-      // After a vignette, go to falling scene (unless we've completed all)
-      if (state.currentFallingIndex < 5) { // 6 falling scenes total (0-5)
+      // After a vignette, go to falling scene
+      if (state.currentFallingIndex < totalFallingScenes - 1) {
         set({ 
           phase: 'falling',
           currentFallingIndex: state.currentFallingIndex + 1
@@ -106,15 +107,15 @@ export const useGameStore = create<GameStore>((set, get) => ({
         set({ phase: 'terminal' });
       }
     } else if (state.phase === 'falling') {
-      // After a falling scene, go to next vignette (unless we've completed all)
-      if (state.currentVignetteIndex < vignettes.length - 1) {
+      // After a falling scene, go to next vignette (if any left)
+      if (state.currentVignetteIndex < totalVignettes - 1) {
         set({ 
           phase: 'vignettes',
           currentVignetteIndex: state.currentVignetteIndex + 1
         });
       } else {
-        // All vignettes done, continue with remaining falling scenes
-        if (state.currentFallingIndex < 5) {
+        // All vignettes done, continue with remaining falling scenes or go to terminal
+        if (state.currentFallingIndex < totalFallingScenes - 1) {
           set({ 
             phase: 'falling',
             currentFallingIndex: state.currentFallingIndex + 1
