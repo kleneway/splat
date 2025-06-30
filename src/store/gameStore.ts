@@ -96,7 +96,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
     const totalFallingScenes = 15; // 15 falling scenes (0-14)
 
     if (state.phase === 'vignettes') {
-      // After completing a vignette, go to the next falling scene
+      // After completing a vignette, increment falling index and go to falling scene
       const nextFallingIndex = state.currentFallingIndex + 1;
       
       if (nextFallingIndex < totalFallingScenes) {
@@ -109,13 +109,14 @@ export const useGameStore = create<GameStore>((set, get) => ({
         set({ phase: 'terminal' });
       }
     } else if (state.phase === 'falling') {
-      // After a falling scene, go to next vignette (if any left)
-      const nextVignetteIndex = state.currentVignetteIndex + 1;
+      // After a falling scene, check if we need more vignettes
+      // The falling index should match the vignette index after the first falling scene
+      const targetVignetteIndex = state.currentFallingIndex;
       
-      if (nextVignetteIndex < totalVignettes) {
+      if (targetVignetteIndex < totalVignettes) {
         set({ 
           phase: 'vignettes',
-          currentVignetteIndex: nextVignetteIndex
+          currentVignetteIndex: targetVignetteIndex
         });
       } else {
         // All vignettes done, continue with remaining falling scenes or go to terminal
