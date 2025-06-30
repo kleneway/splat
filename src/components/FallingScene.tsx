@@ -12,8 +12,8 @@ export const FallingScene: React.FC<FallingSceneProps> = ({ sceneIndex }) => {
 
   const fallingScenes = [
     {
-      // First fall - exhilaration
-      title: "The Jump",
+      // Scene 0 - Initial exhilaration (before first vignette)
+      title: "The Leap",
       altitude: "14,000 feet",
       thoughts: [
         "The door opens and suddenly I'm falling through nothing but air and sky.",
@@ -25,9 +25,9 @@ export const FallingScene: React.FC<FallingSceneProps> = ({ sceneIndex }) => {
       windIntensity: "moderate"
     },
     {
-      // Second fall - first attempt at ripcord
+      // Scene 1 - First attempt at ripcord (after father's guitar)
       title: "The Pull",
-      altitude: "12,000 feet",
+      altitude: "13,000 feet",
       thoughts: [
         "Time to pull the ripcord. Just like Jake showed me.",
         "I reach for the handle... where is it? WHERE IS IT?",
@@ -38,22 +38,35 @@ export const FallingScene: React.FC<FallingSceneProps> = ({ sceneIndex }) => {
       windIntensity: "intense"
     },
     {
-      // Third fall - panic setting in
-      title: "The Realization",
-      altitude: "10,000 feet",
+      // Scene 2 - Denial phase (after class presentation)
+      title: "This Can't Be Real",
+      altitude: "12,000 feet",
       thoughts: [
-        "The ground is getting bigger. Much bigger.",
-        "I can see individual trees now. Individual cars on the highway.",
         "This isn't happening. This can't be happening to me.",
-        "I've spent my whole life being careful, being safe. This isn't how it ends."
+        "I've spent my whole life being careful, being safe.",
+        "People like me don't die in skydiving accidents. We die quietly in hospital beds.",
+        "Any second now, the chute will open. Any second now."
       ],
-      backgroundClass: "bg-gradient-to-b from-blue-600 to-green-400",
+      backgroundClass: "bg-gradient-to-b from-blue-600 to-blue-800",
       windIntensity: "intense"
     },
     {
-      // Fourth fall - memories flooding back
+      // Scene 3 - Growing panic (after graffiti)
+      title: "The Realization",
+      altitude: "11,000 feet",
+      thoughts: [
+        "The ground is getting bigger. Much bigger.",
+        "I can see individual trees now. Individual cars on the highway.",
+        "My hands are shaking so hard I can barely grab the backup handle.",
+        "This is really happening. This is really, actually happening."
+      ],
+      backgroundClass: "bg-gradient-to-b from-blue-700 to-green-400",
+      windIntensity: "intense"
+    },
+    {
+      // Scene 4 - Memories begin (after hidden poems)
       title: "The Flood",
-      altitude: "8,000 feet",
+      altitude: "10,000 feet",
       thoughts: [
         "They say your life flashes before your eyes when you're dying.",
         "I always thought that was just a saying.",
@@ -64,42 +77,133 @@ export const FallingScene: React.FC<FallingSceneProps> = ({ sceneIndex }) => {
       windIntensity: "extreme"
     },
     {
-      // Fifth fall - deeper memories
-      title: "The Past",
-      altitude: "6,000 feet",
+      // Scene 5 - Childhood memories surface (after the protest)
+      title: "Echoes of Youth",
+      altitude: "9,000 feet",
       thoughts: [
-        "Each memory hits like a physical blow.",
-        "All the times I chose safety over adventure, fear over love.",
-        "Julia's face when I said no to Denver. Dad's guitar gathering dust.",
-        "A lifetime of 'maybe next time' and 'when I'm ready.'"
+        "I can hear Dad's guitar again, that sad melody drifting through the house.",
+        "All those nights I wanted to ask him to teach me, but never found the courage.",
+        "Even as a kid, I was already learning to play it safe.",
+        "When did I stop believing in magic? When did I stop believing in myself?"
       ],
       backgroundClass: "bg-gradient-to-b from-yellow-400 to-orange-400",
       windIntensity: "extreme"
     },
     {
-      // Sixth fall - anger and regret
-      title: "The Rage",
-      altitude: "4,000 feet",
+      // Scene 6 - Regret about Julia (after job interview)
+      title: "The Love I Lost",
+      altitude: "8,000 feet",
       thoughts: [
-        "Fifty-five years of playing it safe, and this is how it ends?",
-        "All those dreams I buried, all those chances I didn't take.",
-        "Julia was right. I was afraid to really live.",
-        "And now I'm going to die without ever finding out who I could have been."
+        "Julia. God, Julia. I can see her face so clearly now.",
+        "All those times she wanted to travel, to take risks, to really live.",
+        "And I held her back with my fear, my need for safety.",
+        "She deserved someone who would follow her into the unknown."
       ],
-      backgroundClass: "bg-gradient-to-b from-orange-400 to-red-400",
+      backgroundClass: "bg-gradient-to-b from-orange-400 to-orange-600",
       windIntensity: "extreme"
     },
     {
-      // Seventh fall - acceptance and final attempt
+      // Scene 7 - Anger phase begins (after Julia's ultimatum)
+      title: "The Rage",
+      altitude: "7,000 feet",
+      thoughts: [
+        "Fifty-five years of playing it safe, and this is how it ends?",
+        "All those dreams I buried, all those chances I didn't take.",
+        "I'm angry. I'm so damn angry at myself.",
+        "Why did it take falling to my death to finally feel something real?"
+      ],
+      backgroundClass: "bg-gradient-to-b from-orange-600 to-red-400",
+      windIntensity: "extreme"
+    },
+    {
+      // Scene 8 - Thoughts of Ethan (after son's dreams)
+      title: "My Boy",
+      altitude: "6,000 feet",
+      thoughts: [
+        "Ethan. My beautiful, dreaming boy.",
+        "I see his face when he talked about being an astronaut.",
+        "Did I crush his dreams the way mine were crushed?",
+        "Please, let him be braver than his father. Let him reach for the stars."
+      ],
+      backgroundClass: "bg-gradient-to-b from-red-400 to-red-500",
+      windIntensity: "extreme"
+    },
+    {
+      // Scene 9 - Career regrets (after promotion declined)
+      title: "The Safe Path",
+      altitude: "5,000 feet",
+      thoughts: [
+        "Forty years in the same office, the same desk, the same routine.",
+        "How many opportunities did I let slip by?",
+        "Kansas City. That promotion. Another door I was too afraid to walk through.",
+        "I built a prison out of safety and called it a life."
+      ],
+      backgroundClass: "bg-gradient-to-b from-red-500 to-red-600",
+      windIntensity: "critical"
+    },
+    {
+      // Scene 10 - Broken relationships (after broken vase)
+      title: "Shattered Things",
+      altitude: "4,000 feet",
+      thoughts: [
+        "The sound of that vase breaking. The look in Julia's eyes.",
+        "How many things did I break with my fear, my silence, my absence?",
+        "I was there but not there. Present but not present.",
+        "A ghost haunting my own life."
+      ],
+      backgroundClass: "bg-gradient-to-b from-red-600 to-red-700",
+      windIntensity: "critical"
+    },
+    {
+      // Scene 11 - Midnight loneliness (after midnight conversation)
+      title: "The Space Between",
+      altitude: "3,500 feet",
+      thoughts: [
+        "All those sleepless nights, sitting in the dark.",
+        "Julia and I, two strangers sharing the same house.",
+        "When did we stop talking? When did we stop dreaming together?",
+        "The silence between us grew until it swallowed everything."
+      ],
+      backgroundClass: "bg-gradient-to-b from-red-700 to-red-800",
+      windIntensity: "critical"
+    },
+    {
+      // Scene 12 - Mortality awareness (after friend's funeral)
+      title: "The Final Lesson",
+      altitude: "3,000 feet",
+      thoughts: [
+        "Mike's funeral. All those adventures he had while I filed paperwork.",
+        "He lived more in fifty years than I did in fifty-five.",
+        "That plane ticket stub in my wallet. His last adventure.",
+        "Maybe this is mine."
+      ],
+      backgroundClass: "bg-gradient-to-b from-red-800 to-black",
+      windIntensity: "critical"
+    },
+    {
+      // Scene 13 - Professional guilt (after insurance claim)
+      title: "The Weight of Choices",
+      altitude: "2,500 feet",
+      thoughts: [
+        "Maria Hendricks. Her burned house. Her children sleeping on floors.",
+        "How many people did I fail with my adherence to policy?",
+        "I chose rules over humanity, safety over compassion.",
+        "Even my job became another way to avoid really living."
+      ],
+      backgroundClass: "bg-gradient-to-b from-black to-gray-900",
+      windIntensity: "critical"
+    },
+    {
+      // Scene 14 - Final acceptance and last attempt (after Julia's letter and jump decision)
       title: "The Last Chance",
       altitude: "2,000 feet",
       thoughts: [
-        "Wait. The backup chute. I still have the backup chute.",
+        "Julia's letter. Her final words about learning to fly.",
+        "Maybe this is what she meant. Maybe this is my moment.",
         "One last chance. One final pull of the cord.",
-        "Everything I've learned, everything I've been, comes down to this moment.",
-        "Please. Please let this work."
+        "Please. Please let this work. Let me finally choose to live."
       ],
-      backgroundClass: "bg-gradient-to-b from-red-400 to-red-600",
+      backgroundClass: "bg-gradient-to-b from-gray-900 to-red-900",
       windIntensity: "critical"
     }
   ];
@@ -168,7 +272,7 @@ export const FallingScene: React.FC<FallingSceneProps> = ({ sceneIndex }) => {
         ))}
       </div>
 
-      {/* Roy falling - using the correct roy-falling.png */}
+      {/* Roy falling */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div 
           className="animate-gentle-float"
@@ -222,10 +326,10 @@ export const FallingScene: React.FC<FallingSceneProps> = ({ sceneIndex }) => {
       </div>
 
       {/* Ground approaching effect for later scenes */}
-      {sceneIndex >= 4 && (
+      {sceneIndex >= 8 && (
         <div 
           className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-green-800/60 to-transparent animate-zoom-in"
-          style={{ height: `${Math.min((sceneIndex - 3) * 15, 50)}vh` }}
+          style={{ height: `${Math.min((sceneIndex - 7) * 8, 40)}vh` }}
         />
       )}
     </div>

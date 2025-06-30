@@ -92,8 +92,8 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
   nextVignette: () => {
     const state = get();
-    const totalVignettes = vignettes.length; // 7 vignettes
-    const totalFallingScenes = 7; // 7 falling scenes
+    const totalVignettes = vignettes.length; // 14 vignettes
+    const totalFallingScenes = 15; // 15 falling scenes (one before first vignette + one between each)
 
     if (state.phase === 'vignettes') {
       // After a vignette, go to falling scene
