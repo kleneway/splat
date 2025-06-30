@@ -6,7 +6,7 @@ interface FallingSceneProps {
 }
 
 export const FallingScene: React.FC<FallingSceneProps> = ({ sceneIndex }) => {
-  const { setPhase, stats } = useGameStore();
+  const { setPhase, stats, nextVignette } = useGameStore();
   const [currentThoughtIndex, setCurrentThoughtIndex] = useState(0);
   const [showContinue, setShowContinue] = useState(false);
 
@@ -230,8 +230,8 @@ export const FallingScene: React.FC<FallingSceneProps> = ({ sceneIndex }) => {
       // Last falling scene, go to terminal
       setPhase('terminal');
     } else {
-      // Go to next vignette
-      setPhase('vignettes');
+      // Use the centralized nextVignette function to properly manage state progression
+      nextVignette();
     }
   };
 
