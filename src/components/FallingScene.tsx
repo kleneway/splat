@@ -155,12 +155,12 @@ export const FallingScene: React.FC<FallingSceneProps> = ({ sceneIndex }) => {
         ))}
       </div>
 
-      {/* Roy falling - using the same image from intro */}
+      {/* Roy falling - using the correct roy-falling.png */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div 
           className="animate-gentle-float"
           style={{
-            backgroundImage: `url('/ChatGPT Image Jun 17, 2025, 11_38_28 AM.png')`,
+            backgroundImage: `url('/image/roy-falling.png')`,
             backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
