@@ -138,9 +138,12 @@ export const TitleScreen: React.FC = () => {
             You are Roy Thompson, an insurance salesman from Kansas
             who has spent his entire life making safe choices.
           </p>
-          <p className="text-base leading-relaxed text-yellow-300">
+          <p className="text-base leading-relaxed">
             On your 55th birthday, you decide to go skydiving - the first truly risky
-            thing you've ever done. That...may have been a mistake.
+            thing you've ever done.
+          </p>
+          <p className="text-base leading-relaxed text-yellow-300">
+            That...may have been a mistake.
           </p>
         </div>
 
